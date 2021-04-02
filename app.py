@@ -12,7 +12,7 @@ DEBUG = True
 
 PORT = 5000
 
-# login_manager = LoginManager()
+login_manager = LoginManager()
 
 app = Flask(__name__)
 
@@ -21,16 +21,16 @@ app = Flask(__name__)
 #     SESSION_COOKIE_SAMESITE="None",
 # )
 
-# app.secret_key = 'TOPSECRETDONOTSTEAL'
-# login_manager.init_app(app)
+app.secret_key = 'TOPSECRETDONOTSTEAL'
+login_manager.init_app(app)
 
-# @login_manager.user_loader
-# def load_user(user_id):
-#     try:
-#         return models.DogUser.get(models.DogUser.id == user_id)
-#     except:
-#         print(f'User not found: {user_id}')
-#         return None
+@login_manager.user_loader
+def load_user(user_id):
+    try:
+        return models.DogUser.get(models.DogUser.id == user_id)
+    except:
+        print(f'User not found: {user_id}')
+        return None
 
 @app.before_request
 def before_request():
@@ -48,7 +48,7 @@ CORS(dog, origins=['http://localhost:3000'], supports_credentials=True)
 app.register_blueprint(dog, url_prefix='/api/v1/dogs')
 
 CORS(caretaker, origins=['http://localhost:3000'], supports_credentials=True)
-app.register_blueprint(caretaker, url_prefix='/api/v1/caretaker')
+app.register_blueprint(caretaker, url_prefix='/api/v1/caretakers')
 
 
 @app.route('/')

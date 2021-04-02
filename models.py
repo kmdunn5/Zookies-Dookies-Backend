@@ -21,7 +21,7 @@ class Dog(Model):
     breed = TextField()
     image = BlobField(null=True)
     notes = TextField()
-    created_at = DateTimeField(default= datetime.now)
+    created_at = DateTimeField(default=datetime.now)
 
     class Meta():
         database = DATABASE
@@ -29,6 +29,9 @@ class Dog(Model):
 class Dog_Caretakers(Model):
     caretaker_id = ForeignKeyField(Caretaker)
     dog_id = ForeignKeyField(Dog)
+
+    class Meta():
+        database=DATABASE
 
 class Vaccines(Model):
     vaccine_name = CharField(null=False)
