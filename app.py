@@ -5,6 +5,7 @@ from flask_login import LoginManager
 import models
 
 from resources.dogs import dog
+from resources.caretakers import caretaker
 # from resources.dookies import dookies
 
 DEBUG = True
@@ -46,8 +47,8 @@ def after_request(response):
 CORS(dog, origins=['http://localhost:3000'], supports_credentials=True)
 app.register_blueprint(dog, url_prefix='/api/v1/dogs')
 
-# CORS(user, origins=['http://localhost:3000'], supports_credentials=True)
-# app.register_blueprint(user, url_prefix='/api/v1/users')
+CORS(caretaker, origins=['http://localhost:3000'], supports_credentials=True)
+app.register_blueprint(caretaker, url_prefix='/api/v1/caretaker')
 
 
 @app.route('/')

@@ -20,13 +20,15 @@ class Dog(Model):
     birthday = DateField(default=date.today())
     breed = TextField()
     image = BlobField(null=True)
-    caretaker = IntegerField() #ForeignKeyField(Caretaker, backref='dogs')
     notes = TextField()
     created_at = DateTimeField(default= datetime.now)
 
     class Meta():
         database = DATABASE
 
+class Dog_Caretakers(Model):
+    caretaker_id = ForeignKeyField(Caretaker)
+    dog_id = ForeignKeyField(Dog)
 
 class Vaccines(Model):
     vaccine_name = CharField(null=False)
@@ -62,6 +64,6 @@ class Dookies(Model):
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([Dog, Caretaker, Vaccines, Medicines, Dookies], safe=True)
+    DATABASE.create_tables([Dog, Caretaker, Dog_Caretakers, Vaccines, Medicines, Dookies], safe=True)
     print('TABLES created')
     DATABASE.close()
