@@ -15,27 +15,41 @@ class Caretaker(UserMixin, Model):
         database = DATABASE
 
 class Dog(Model):
-    name = CharField
+    name = CharField(null=False)
     birthday = DateField(default=date.today())
-    age = IntegerField(default=0)
+    breed = CharField
+    image = BlobField
     caretaker = ForeignKeyField(Caretaker, backref='dogs')
-    core_vaccines = ForeignKeyField(Vaccines, backref='dogs')
+    notes = TextField
+
+    class Meta():
+        database = DATABASE
+
 
 class Vaccines(Model):
-    vaccine_name = CharField
-    date_taken = DateField
-    core = BooleanField
+    vaccine_name = CharField(null=False)
+    date_taken = DateField(default=date.today())
+    dog_id = ForeignKeyField(Dogs, backref='vaccines')
+
+    class Meta():
+        database = DATABASE
 
 class Medicines(Model):
-    
+    medicine_name = CharField(null=False)
+    most_recent_date = DateField(default=date.today())
+    frequency = TextField(default='1 per year')
+    dog_id = ForeignKeyField(Dogs, backref='medicines')
 
-
+    class Meta():
+        database = DATABASE
 
 class Dookies(Model):
     abnormal = BooleanField(null=False)
-    color = CharField(default='brown')
-    shape = CharField(default='log')
-    consistency = CharField(default='compact')
-    size = CharField(default='normal')
-    consistency = CharField(default='nothing different')
+    color = TextField(default='brown')
+    shape = TextField(default='log')
+    consistency = TextField(default='compact')
+    size = TextField(default='normal')
+    consistency = TextField(default='nothing different')
 
+    class Meta():
+        database = DATABASE
