@@ -46,7 +46,7 @@ def create_dog():
     
     relation = models.Dog_Caretaker.create(
         caretaker_id = current_user.id,
-        dog_id = dog['id']
+        dog_id = dog.id
     )
 
     dog_dict = model_to_dict(dog)

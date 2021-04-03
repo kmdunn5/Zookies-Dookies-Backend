@@ -29,7 +29,7 @@ login_manager.init_app(app)
 @login_manager.user_loader
 def load_user(user_id):
     try:
-        return models.DogUser.get(models.DogUser.id == user_id)
+        return models.Caretaker.get(models.Caretaker.id == user_id)
     except:
         print(f'User not found: {user_id}')
         return None
