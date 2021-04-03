@@ -58,7 +58,7 @@ class Dookie(Model):
     shape = TextField(default='log')
     consistency = TextField(default='compact')
     size = TextField(default='normal')
-    consistency = TextField(default='nothing different')
+    content = TextField(default='nothing different')
     dog_id = ForeignKeyField(Dog, backref='dookies')
     created_at = DateTimeField(default= datetime.now)
 
