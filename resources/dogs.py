@@ -11,7 +11,6 @@ dog = Blueprint('dogs', 'dog')
 def get_all_dogs():
     try:
         dogs = [model_to_dict(dog) for dog in models.Dog.select()]
-        print(dogs)
         return jsonify(data=dogs, status={'code': 200, 'message': 'Success'})
 
     except models.DoesNotExist:
@@ -21,10 +20,11 @@ def get_all_dogs():
 @dog.route('/', methods=['GET'])
 @login_required
 def get_all_users_dogs():
+    query = models.Dog.select().join(models.Dog_Caretaker).join(models.Caretaker).where(models.Caretaker.id == current_user.id)
     try:
-        dogs = [model_to_dict(dog) for dog in current_user.dogs]
-        print(dogs)
-        return jsonify(data=dogs, status={'code': 200, 'message': 'Success'})
+        dogs = query.execute()
+        dogs_dict = [model_to_dict(dog) for dog in dogs]
+        return jsonify(data=dogs_dict, status={'code': 200, 'message': 'Success'})
 
     except models.DoesNotExist:
         return jsonify(data={}, status={'code': 401, 'message': 'Error getting the resources'})
