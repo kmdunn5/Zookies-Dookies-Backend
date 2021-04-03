@@ -6,6 +6,8 @@ import models
 
 from resources.dogs import dog
 from resources.caretakers import caretaker
+from resources.vaccines import vaccine
+# from resources.medicines import medicine
 # from resources.dookies import dookies
 
 DEBUG = True
@@ -50,6 +52,14 @@ app.register_blueprint(dog, url_prefix='/api/v1/dogs')
 CORS(caretaker, origins=['http://localhost:3000'], supports_credentials=True)
 app.register_blueprint(caretaker, url_prefix='/api/v1/caretakers')
 
+CORS(vaccine, origins=['http://localhost:3000'], supports_credentials=True)
+app.register_blueprint(vaccine, url_prefix='/api/v1/vaccines')
+
+# CORS(medicine, origins=['http://localhost:3000'], supports_credentials=True)
+# app.register_blueprint(medicine, url_prefix='/api/v1/medicines')
+
+# CORS(dookie, origins=['http://localhost:3000'], supports_credentials=True)
+# app.register_blueprint(dookie, url_prefix='/api/v1/dookies')
 
 @app.route('/')
 def index():

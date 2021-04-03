@@ -6,18 +6,32 @@ import models
 
 dog = Blueprint('dogs', 'dog')
 
+# Find all dogs
+@dog.route('/all', methods=['GET'])
+def get_all_dogs():
+    try:
+        dogs = [model_to_dict(dog) for dog in current_user.dogs]
+        print(dogs)
+        return jsonify(data=dogs, status={'code': 200, 'message': 'Success'})
+
+    except models.DoesNotExist:
+        return jsonify(data={}, status={'code': 401, 'message': 'Error getting the resources'})
+
+# Find all dogs for the current user
 @dog.route('/', methods=['GET'])
-# @login_required
+@login_required
 def get_all_dogs():
     try:
         dogs = [model_to_dict(dog) for dog in models.Dog.select()]
         print(dogs)
         return jsonify(data=dogs, status={'code': 200, 'message': 'Success'})
+
     except models.DoesNotExist:
         return jsonify(data={}, status={'code': 401, 'message': 'Error getting the resources'})
 
+# Create a dog
 @dog.route('/', methods=['POST'])
-# @login_required
+@login_required
 def create_dog():
     payload = request.get_json()
 
@@ -26,15 +40,16 @@ def create_dog():
         birthday = payload['birthday'],
         breed = payload['breed'],
         image = payload['image'],
-        caretaker = payload['caretaker'],
+        caretaker = current_user.id,
         notes = payload['notes']
         )
     
     dog_dict = model_to_dict(dog)
     return jsonify(data=dog_dict, status={'code': 201, 'message': 'Succesfully created a dog'})
 
+# Get the specific dog
 @dog.route('/<dog_id>', methods=['GET'])
-# @login_required
+@login_required
 def get_one_dog(dog_id):
     try: 
         dog = models.Dog.get_by_id(dog_id)
@@ -42,9 +57,10 @@ def get_one_dog(dog_id):
 
     except models.DoesNotExist:
         return jsonify(data={}, status={'code': 404, 'message': f'Dog resource {dog_id} does not exist'})
-    
+
+# Update a specific dog
 @dog.route('/<dog_id>', methods=['PUT'])
-# @login_required
+@login_required
 def update_one_dog(dog_id):
     payload = request.get_json()
 
@@ -57,8 +73,9 @@ def update_one_dog(dog_id):
     except models.DoesNotExist:
         return jsonify(data={}, status={'code': 404, 'message': f'dog resource {dog_id} does not exist'})
 
+# Delete a specfic dog
 @dog.route('/<dog_id>', methods=['DELETE'])
-# @login_required
+@login_required
 def delete_dog(dog_id):
     query = models.Dog.delete().where(models.Dog.id == dog_id)
     del_rows = query.execute()

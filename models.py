@@ -33,7 +33,7 @@ class Dog_Caretakers(Model):
     class Meta():
         database=DATABASE
 
-class Vaccines(Model):
+class Vaccine(Model):
     vaccine_name = CharField(null=False)
     date_taken = DateField(default=date.today())
     dog_id = ForeignKeyField(Dog, backref='vaccines')
@@ -42,7 +42,7 @@ class Vaccines(Model):
     class Meta():
         database = DATABASE
 
-class Medicines(Model):
+class Medicine(Model):
     medicine_name = CharField(null=False)
     most_recent_date = DateField(default=date.today())
     frequency = TextField(default='1 per year')
@@ -52,7 +52,7 @@ class Medicines(Model):
     class Meta():
         database = DATABASE
 
-class Dookies(Model):
+class Dookie(Model):
     abnormal = BooleanField(null=False)
     color = TextField(default='brown')
     shape = TextField(default='log')

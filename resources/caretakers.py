@@ -7,6 +7,7 @@ import models
 
 caretaker = Blueprint('caretakers', 'caretaker')
 
+# Create a new Caretaker
 @caretaker.route('/register', methods=['POST'])
 def create_caretaker():
     payload = request.get_json()
@@ -33,7 +34,7 @@ def create_caretaker():
 
             return jsonify(data=caretaker_dict, status={'code':201, 'message':'Successfully created Caretaker'})
 
-
+# Login a Caretaker
 @caretaker.route('/login', methods=['POST'])
 def login_caretaker():
     payload = request.get_json()
@@ -54,6 +55,7 @@ def login_caretaker():
     else:
         return jsonify(data={}, status={'code':401, 'message':'Incorrect password'})
 
+# Log out Caretakers
 @caretaker.route('/logout', methods=['GET'])
 def logout_caretaker():
     logout_user()
