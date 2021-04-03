@@ -26,7 +26,7 @@ class Dog(Model):
     class Meta():
         database = DATABASE
 
-class Dog_Caretakers(Model):
+class Dog_Caretaker(Model):
     caretaker_id = ForeignKeyField(Caretaker)
     dog_id = ForeignKeyField(Dog)
 
@@ -67,6 +67,6 @@ class Dookie(Model):
 
 def initialize():
     DATABASE.connect()
-    DATABASE.create_tables([Dog, Caretaker, Dog_Caretakers, Vaccines, Medicines, Dookies], safe=True)
+    DATABASE.create_tables([Dog, Caretaker, Dog_Caretaker, Vaccine, Medicine, Dookie], safe=True)
     print('TABLES created')
     DATABASE.close()

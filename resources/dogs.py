@@ -10,7 +10,7 @@ dog = Blueprint('dogs', 'dog')
 @dog.route('/all', methods=['GET'])
 def get_all_dogs():
     try:
-        dogs = [model_to_dict(dog) for dog in current_user.dogs]
+        dogs = [model_to_dict(dog) for dog in models.Dog.select()]
         print(dogs)
         return jsonify(data=dogs, status={'code': 200, 'message': 'Success'})
 
@@ -20,9 +20,9 @@ def get_all_dogs():
 # Find all dogs for the current user
 @dog.route('/', methods=['GET'])
 @login_required
-def get_all_dogs():
+def get_all_users_dogs():
     try:
-        dogs = [model_to_dict(dog) for dog in models.Dog.select()]
+        dogs = [model_to_dict(dog) for dog in current_user.dogs]
         print(dogs)
         return jsonify(data=dogs, status={'code': 200, 'message': 'Success'})
 
@@ -35,17 +35,23 @@ def get_all_dogs():
 def create_dog():
     payload = request.get_json()
 
-    dog = models.Dog.create(
-        name = payload['name'],
-        birthday = payload['birthday'],
-        breed = payload['breed'],
-        image = payload['image'],
-        caretaker = current_user.id,
-        notes = payload['notes']
-        )
+    dog = models.Dog.create(**payload)
+    # dog = models.Dog.create(
+    #     name = payload['name'],
+    #     birthday = payload['birthday'],
+    #     breed = payload['breed'],
+    #     image = payload['image'],
+    #     notes = payload['notes']
+    #     )
     
+    relation = models.Dog_Caretaker.create(
+        caretaker_id = current_user.id,
+        dog_id = dog['id']
+    )
+
     dog_dict = model_to_dict(dog)
-    return jsonify(data=dog_dict, status={'code': 201, 'message': 'Succesfully created a dog'})
+    relation_dict = model_to_dict(relation)
+    return jsonify(data={'dog':dog_dict, 'relationship':relation_dict}, status={'code': 201, 'message': 'Succesfully created a dog'})
 
 # Get the specific dog
 @dog.route('/<dog_id>', methods=['GET'])
