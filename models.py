@@ -54,6 +54,7 @@ class Medicine(Model):
 
 class Dookie(Model):
     abnormal = BooleanField(null=False)
+    food = TextField()
     color = TextField(default='brown')
     shape = TextField(default='log')
     consistency = TextField(default='compact')

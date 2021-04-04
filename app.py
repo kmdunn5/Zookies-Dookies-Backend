@@ -61,10 +61,6 @@ app.register_blueprint(medicine, url_prefix='/api/v1/medicines')
 CORS(dookie, origins=['http://localhost:3000'], supports_credentials=True)
 app.register_blueprint(dookie, url_prefix='/api/v1/dookies')
 
-@app.route('/')
-def index():
-    return 'test'
-
 if __name__ == '__main__':
     models.initialize()
     app.run(debug = DEBUG, port = PORT)
