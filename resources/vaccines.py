@@ -8,6 +8,7 @@ vaccine = Blueprint('vaccines', 'vaccine')
 
 # Get vaccines for that dog
 @vaccine.route('/<dog_id>', methods=['GET'])
+@login_required
 def get_vaccines(dog_id):
     query = models.Vaccine.select().where(models.Vaccine.dog_id == dog_id)
     try:
@@ -20,6 +21,7 @@ def get_vaccines(dog_id):
 
 # Create a new vaccine for the dog
 @vaccine.route('/<dog_id>', methods=['POST'])
+@login_required
 def create_vaccine(dog_id):
     payload = request.get_json()
     payload['dog_id'] = dog_id
@@ -31,6 +33,7 @@ def create_vaccine(dog_id):
 
 # Update Specific vaccine for the dog
 @vaccine.route('/<dog_id>/<vaccine_id>', methods=['PUT'])
+@login_required
 def update_one_vaccine(dog_id, vaccine_id):
     payload = request.get_json()
 
@@ -45,6 +48,7 @@ def update_one_vaccine(dog_id, vaccine_id):
 
 # Delete Specific vaccine for the dog
 @vaccine.route('/<dog_id>/<vaccine_id>', methods=['DELETE'])
+@login_required
 def delete_vaccine(dog_id, vaccine_id):
     query = models.Vaccine.delete().where((models.Vaccine.dog_id == dog_id) & (models.Vaccine.id == vaccine_id))
     del_rows = query.execute()

@@ -20,6 +20,7 @@ def get_medicines(dog_id):
 
 # Create a new medicine for the dog
 @medicine.route('/<dog_id>', methods=['POST'])
+@login_required
 def create_medicine(dog_id):
     payload = request.get_json()
     payload['dog_id'] = dog_id 
@@ -31,6 +32,7 @@ def create_medicine(dog_id):
 
 # Update Specific medicine for the dog
 @medicine.route('/<dog_id>/<medicine_id>', methods=['PUT'])
+@login_required
 def update_one_medicine(dog_id, medicine_id):
     payload = request.get_json()
 
@@ -46,6 +48,7 @@ def update_one_medicine(dog_id, medicine_id):
 
 # Delete Specific medicine for the dog
 @medicine.route('/<dog_id>/<medicine_id>', methods=['DELETE'])
+@login_required
 def delete_medicine(dog_id, medicine_id):
     query = models.Medicine.delete().where((models.Medicine.dog_id == dog_id) & (models.Medicine.id == medicine_id))
     del_rows = query.execute()

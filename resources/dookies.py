@@ -8,6 +8,7 @@ dookie = Blueprint('dookies', 'dookie')
 
 # Get all dookies for the dog
 @dookie.route('/<dog_id>', methods=['GET'])
+@login_required
 def get_dookies(dog_id):
     query = models.Dookie.select().where(models.Dookie.dog_id == dog_id)
     try:
@@ -20,6 +21,7 @@ def get_dookies(dog_id):
 
 # Create a new dookie for the dog
 @dookie.route('/<dog_id>', methods=['POST'])
+@login_required
 def create_a_dookie(dog_id):
     payload = request.get_json()
     payload['dog_id'] = dog_id
@@ -31,6 +33,7 @@ def create_a_dookie(dog_id):
 
 # Delete Specific dookie for the dog
 @dookie.route('/<dog_id>/<dookie_id>', methods=['DELETE'])
+@login_required
 def delete_dookie(dog_id, dookie_id):
     query = models.Dookie.delete().where((models.Dookie.dog_id == dog_id) & (models.Dookie.id == dookie_id))
     del_rows = query.execute()
