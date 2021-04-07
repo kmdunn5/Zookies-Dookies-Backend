@@ -58,9 +58,10 @@ class Dookie(Model):
     color = TextField(default='brown')
     shape = TextField(default='log')
     consistency = TextField(default='compact')
-    size = TextField(default='normal')
-    content = TextField(default='nothing different')
+    size = TextField(default='expected')
+    content = TextField(default='nothing unusual')
     dog_id = ForeignKeyField(Dog, backref='dookies')
+    created_date = DateField(default=date.today())
     created_at = DateTimeField(default= datetime.now)
 
     class Meta():
