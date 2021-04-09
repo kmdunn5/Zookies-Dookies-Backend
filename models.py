@@ -72,3 +72,6 @@ def initialize():
     DATABASE.create_tables([Dog, Caretaker, Dog_Caretaker, Vaccine, Medicine, Dookie], safe=True)
     print('TABLES created')
     DATABASE.close()
+
+
+# on_delete=models.CASCADE look this up in peewee
