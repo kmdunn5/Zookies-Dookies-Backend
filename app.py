@@ -24,10 +24,10 @@ login_manager = LoginManager()
 
 app = Flask(__name__)
 
-# app.config.update(
-#     SESSION_COOKIE_SECURE=True,
-#     SESSION_COOKIE_SAMESITE="None",
-# )
+app.config.update(
+    SESSION_COOKIE_SECURE=True,
+    SESSION_COOKIE_SAMESITE="None",
+)
 
 app.secret_key = os.environ.get("SECRET")
 login_manager.init_app(app)
