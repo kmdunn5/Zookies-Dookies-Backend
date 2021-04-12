@@ -8,6 +8,7 @@ from playhouse.db_url import connect
 #     DATABASE = PostgresqlDatabase('dookies')
 # else:
 #     DATABASE = PostgresqlDatabase('dookies', user=os.environ.get('USER'), password=os.environ.get('PASSWORD'), host=os.environ.get('HOST'), port=os.environ.get('PORT'))
+print(os.environ)
 
 if 'ON_HEROKU' in os.environ:
     DATABASE = connect(os.environ.get('DATABASE_URL'))
