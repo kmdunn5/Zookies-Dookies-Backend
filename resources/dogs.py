@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from playhouse.shortcuts import model_to_dict
+from flask_cors import cross_origin
 
 import models
 
@@ -8,6 +9,7 @@ dog = Blueprint('dogs', 'dog')
 
 # Find all dogs
 @dog.route('/all', methods=['GET'])
+@cross_origin()
 def get_all_dogs():
     try:
         dogs = [model_to_dict(dog) for dog in models.Dog.select()]
