@@ -11,8 +11,10 @@ from playhouse.db_url import connect
 
 if 'ON_HEROKU' in os.environ:
     DATABASE = connect(os.environ.get('DATABASE_URL'))
+    print(DATABASE)
 else:
     DATABASE = PostgresqlDatabase('dookies')
+    print('local printing fun times cool')
 
 class Caretaker(UserMixin, Model):
     username = CharField(unique=True, null=False)
