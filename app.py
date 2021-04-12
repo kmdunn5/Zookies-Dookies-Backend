@@ -23,7 +23,7 @@ PORT = os.environ.get("PORT")
 login_manager = LoginManager()
 
 app = Flask(__name__)
-cors = CORS(app, resources={r"/api/*": {"origins": "*"}}) # not sure if this does anything, test later
+# cors = CORS(app, resources={r"/api/*": {"origins": "*"}}) # not sure if this does anything, test later
 
 app.config.update(
     SESSION_COOKIE_SECURE=True,
@@ -53,7 +53,7 @@ def after_request(response):
     print('Disconnect')
     return response
 
-CORS(dog, origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'], supports_credentials=True, exposed_headers=['Access-Control-Allow-Origin']) # not sure if exposed headers does anything
+CORS(dog, origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'], supports_credentials=True, exposed_headers=['Access-Control-Allow-Origin', 'Access-Control-Allow-Credentials']) # not sure if exposed headers does anything
 app.register_blueprint(dog, url_prefix='/api/v1/dogs')
 
 CORS(caretaker, origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'], supports_credentials=True, exposed_headers=['Access-Control-Allow-Origin', 'Access-Control-Allow-Credentials'])

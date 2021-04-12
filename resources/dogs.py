@@ -71,8 +71,8 @@ def get_one_dog(dog_id):
 
 # Update a specific dog
 @dog.route('/<dog_id>', methods=['PUT'])
-@login_required
 @cross_origin()
+@login_required
 def update_one_dog(dog_id):
     payload = request.get_json()
 
@@ -87,8 +87,8 @@ def update_one_dog(dog_id):
 
 # Delete a specfic dog
 @dog.route('/<dog_id>', methods=['DELETE'])
-@login_required
 @cross_origin()
+@login_required
 def delete_dog(dog_id):
     query = models.Dog.delete().where(models.Dog.id == dog_id)
     del_rows = query.execute()
