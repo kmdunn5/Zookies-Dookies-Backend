@@ -1,3 +1,5 @@
+import os
+from dotenv import load_dotenv
 from flask import Flask, jsonify, g
 from flask_cors import CORS
 from flask_login import LoginManager
@@ -11,9 +13,11 @@ from resources.vaccines import vaccine
 from resources.medicines import medicine
 from resources.dookies import dookie
 
-DEBUG = True
+load_dotenv()
 
-PORT = 5000
+DEBUG = os.environ.get("DEBUG")
+
+PORT = os.environ.get("PORT")
 
 login_manager = LoginManager()
 
@@ -24,7 +28,7 @@ app = Flask(__name__)
 #     SESSION_COOKIE_SAMESITE="None",
 # )
 
-app.secret_key = 'TOPSECRETDONOTSTEAL'
+app.secret_key = os.environ.get("SECRET")
 login_manager.init_app(app)
 
 @login_manager.user_loader

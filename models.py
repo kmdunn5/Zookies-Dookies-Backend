@@ -1,8 +1,12 @@
+import os
 from peewee import *
 from flask_login import UserMixin
 from datetime import datetime, date, time
 
-DATABASE = PostgresqlDatabase('dookies')
+if os.environ.get('FLASK_ENV') == 'development':
+    DATABASE = PostgresqlDatabase('dookies')
+else:
+    DATABASE = PostgresqlDatabase('dookies', user=os.environ.get('USER'), password=os.environ.get('PASSWORD'), host=os.environ.get('HOST'), port=os.environ.get('PORT'))
 
 class Caretaker(UserMixin, Model):
     username = CharField(unique=True, null=False)
