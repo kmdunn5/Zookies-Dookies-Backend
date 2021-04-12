@@ -30,6 +30,7 @@ app = Flask(__name__)
 # )
 
 app.secret_key = os.environ.get("SECRET")
+print(app.secret_key)
 login_manager.init_app(app)
 
 @login_manager.user_loader
