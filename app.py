@@ -75,4 +75,5 @@ if 'ON_HEROKU' in os.environ:
 
 if __name__ == '__main__':
     models.initialize()
+    print('this is the 5000 port app')
     app.run(debug = DEBUG, port = PORT)
