@@ -53,19 +53,19 @@ def after_request(response):
     print('Disconnect')
     return response
 
-CORS(dog, origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'], supports_credentials=True, exposed_headers=['Access-Control-Allow-Origin', 'Access-Control-Allow-Credentials']) # not sure if exposed headers does anything
+CORS(dog, origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'], supports_credentials=True, exposed_headers=['Access-Control-Allow-Origin']) # not sure if exposed headers does anything
 app.register_blueprint(dog, url_prefix='/api/v1/dogs')
 
-CORS(caretaker, origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'], supports_credentials=True, exposed_headers=['Access-Control-Allow-Origin', 'Access-Control-Allow-Credentials'])
+CORS(caretaker, origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'], supports_credentials=True, exposed_headers=['Access-Control-Allow-Origin'])
 app.register_blueprint(caretaker, url_prefix='/api/v1/caretakers')
 
-CORS(vaccine, origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'], supports_credentials=True, exposed_headers=['Access-Control-Allow-Origin', 'Access-Control-Allow-Credentials'])
+CORS(vaccine, origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'], supports_credentials=True, exposed_headers=['Access-Control-Allow-Origin'])
 app.register_blueprint(vaccine, url_prefix='/api/v1/vaccines')
 
-CORS(medicine, origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'], supports_credentials=True, exposed_headers=['Access-Control-Allow-Origin', 'Access-Control-Allow-Credentials'])
+CORS(medicine, origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'], supports_credentials=True, exposed_headers=['Access-Control-Allow-Origin'])
 app.register_blueprint(medicine, url_prefix='/api/v1/medicines')
 
-CORS(dookie, origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'], supports_credentials=True, exposed_headers=['Access-Control-Allow-Origin', 'Access-Control-Allow-Credentials'])
+CORS(dookie, origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'], supports_credentials=True, exposed_headers=['Access-Control-Allow-Origin'])
 app.register_blueprint(dookie, url_prefix='/api/v1/dookies')
 
 
