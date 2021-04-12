@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required, current_user
 from playhouse.shortcuts import model_to_dict
-from flask_cors import cross_origin
+# from flask_cors import cross_origin
 
 import models
 
@@ -9,7 +9,7 @@ dog = Blueprint('dogs', 'dog')
 
 # Find all dogs
 @dog.route('/all', methods=['GET'])
-@cross_origin(origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'])
+# @cross_origin(origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'])
 def get_all_dogs():
     try:
         dogs = [model_to_dict(dog) for dog in models.Dog.select()]
@@ -21,7 +21,7 @@ def get_all_dogs():
 # Find all dogs for the current user
 @dog.route('/', methods=['GET'])
 @login_required
-@cross_origin(origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'])
+# @cross_origin(origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'])
 def get_all_users_dogs():
     query = models.Dog.select().join(models.Dog_Caretaker).join(models.Caretaker).where(models.Caretaker.id == current_user.id)
     try:
@@ -35,7 +35,7 @@ def get_all_users_dogs():
 # Create a dog
 @dog.route('/', methods=['POST'])
 @login_required
-@cross_origin(origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'])
+# @cross_origin(origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'])
 def create_dog():
     payload = request.get_json()
 
@@ -60,7 +60,7 @@ def create_dog():
 # Get the specific dog
 @dog.route('/<dog_id>', methods=['GET'])
 @login_required
-@cross_origin(origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'])
+# @cross_origin(origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'])
 def get_one_dog(dog_id):
     try: 
         dog = models.Dog.get_by_id(dog_id)
@@ -71,7 +71,7 @@ def get_one_dog(dog_id):
 
 # Update a specific dog
 @dog.route('/<dog_id>', methods=['PUT'])
-@cross_origin(origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'])
+# @cross_origin(origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'])
 @login_required
 def update_one_dog(dog_id):
     payload = request.get_json()
@@ -87,7 +87,7 @@ def update_one_dog(dog_id):
 
 # Delete a specfic dog
 @dog.route('/<dog_id>', methods=['DELETE'])
-@cross_origin(origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'])
+# @cross_origin(origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'])
 @login_required
 def delete_dog(dog_id):
     query = models.Dog.delete().where(models.Dog.id == dog_id)
