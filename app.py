@@ -23,6 +23,7 @@ PORT = os.environ.get("PORT")
 login_manager = LoginManager()
 
 app = Flask(__name__)
+cors = CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 app.config.update(
     SESSION_COOKIE_SECURE=True,
