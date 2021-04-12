@@ -3,6 +3,7 @@ from flask_bcrypt import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 from playhouse.shortcuts import model_to_dict
 from flask_cors import cross_origin
+from flask_cors import 
 
 import models
 
