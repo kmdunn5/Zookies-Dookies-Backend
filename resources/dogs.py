@@ -20,6 +20,7 @@ def get_all_dogs():
 
 # Find all dogs for the current user
 @dog.route('/', methods=['GET'])
+@cross_origin()
 @login_required
 def get_all_users_dogs():
     query = models.Dog.select().join(models.Dog_Caretaker).join(models.Caretaker).where(models.Caretaker.id == current_user.id)
@@ -33,6 +34,7 @@ def get_all_users_dogs():
 
 # Create a dog
 @dog.route('/', methods=['POST'])
+@cross_origin()
 @login_required
 def create_dog():
     payload = request.get_json()
@@ -57,6 +59,7 @@ def create_dog():
 
 # Get the specific dog
 @dog.route('/<dog_id>', methods=['GET'])
+@cross_origin()
 @login_required
 def get_one_dog(dog_id):
     try: 
@@ -68,6 +71,7 @@ def get_one_dog(dog_id):
 
 # Update a specific dog
 @dog.route('/<dog_id>', methods=['PUT'])
+@cross_origin()
 @login_required
 def update_one_dog(dog_id):
     payload = request.get_json()
@@ -83,6 +87,7 @@ def update_one_dog(dog_id):
 
 # Delete a specfic dog
 @dog.route('/<dog_id>', methods=['DELETE'])
+@cross_origin()
 @login_required
 def delete_dog(dog_id):
     query = models.Dog.delete().where(models.Dog.id == dog_id)

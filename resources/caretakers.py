@@ -2,6 +2,7 @@ from flask import Blueprint, jsonify, request
 from flask_bcrypt import generate_password_hash, check_password_hash
 from flask_login import login_user, logout_user, login_required, current_user
 from playhouse.shortcuts import model_to_dict
+from flask_cors import cross_origin
 
 import models
 
@@ -9,6 +10,7 @@ caretaker = Blueprint('caretakers', 'caretaker')
 
 # Create a new Caretaker
 @caretaker.route('/register', methods=['POST'])
+@cross_origin()
 def create_caretaker():
     payload = request.get_json()
 
@@ -36,6 +38,7 @@ def create_caretaker():
 
 # Login a Caretaker
 @caretaker.route('/login', methods=['POST'])
+@cross_origin()
 def login_caretaker():
     payload = request.get_json()
 
@@ -57,11 +60,13 @@ def login_caretaker():
 
 # Log out Caretakers
 @caretaker.route('/logout', methods=['GET'])
+@cross_origin()
 def logout_caretaker():
     logout_user()
     return jsonify(data={}, status={'code':200, 'message':'Successfully logged out'})
 
 @caretaker.route('/', methods=['GET'])
+@cross_origin()
 @login_required
 def get_current_user():
     current_user_dict = model_to_dict(current_user)
