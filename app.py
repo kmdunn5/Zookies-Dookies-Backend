@@ -66,6 +66,11 @@ app.register_blueprint(medicine, url_prefix='/api/v1/medicines')
 CORS(dookie, origins=['http://localhost:3000'], supports_credentials=True)
 app.register_blueprint(dookie, url_prefix='/api/v1/dookies')
 
+
+if 'ON_HEROKU' in os.environ:
+    print('\non heroku!')
+    models.initialize()
+
 if __name__ == '__main__':
     models.initialize()
     app.run(debug = DEBUG, port = PORT)

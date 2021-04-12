@@ -2,11 +2,17 @@ import os
 from peewee import *
 from flask_login import UserMixin
 from datetime import datetime, date, time
+from playhouse.db_url import connect
 
-if os.environ.get('FLASK_ENV') == 'development':
-    DATABASE = PostgresqlDatabase('dookies')
+# if os.environ.get('FLASK_ENV') == 'development':
+#     DATABASE = PostgresqlDatabase('dookies')
+# else:
+#     DATABASE = PostgresqlDatabase('dookies', user=os.environ.get('USER'), password=os.environ.get('PASSWORD'), host=os.environ.get('HOST'), port=os.environ.get('PORT'))
+
+if 'ON_HEROKU' in os.environ:
+    DATABASE = connect(os.environ.get('DATABASE_URL'))
 else:
-    DATABASE = PostgresqlDatabase('dookies', user=os.environ.get('USER'), password=os.environ.get('PASSWORD'), host=os.environ.get('HOST'), port=os.environ.get('PORT'))
+    DATABASE = PostgresqlDatabase('dookies')
 
 class Caretaker(UserMixin, Model):
     username = CharField(unique=True, null=False)
