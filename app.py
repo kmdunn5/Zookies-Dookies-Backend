@@ -15,9 +15,10 @@ from resources.dookies import dookie
 
 load_dotenv()
 
-DEBUG = os.environ.get("DEBUG")
+if not 'ON_HEROKU' in os.environ:
+    DEBUG = os.environ.get("DEBUG")
 
-PORT = os.environ.get("PORT")
+    PORT = os.environ.get("PORT")
 
 login_manager = LoginManager()
 
