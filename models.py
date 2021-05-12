@@ -21,6 +21,7 @@ class Caretaker(UserMixin, Model):
     role = CharField(default='caretaker')
     created_at = DateTimeField(default= datetime.now)
     receive_emails = BooleanField(default=True)
+    update = BooleanField(default=False)
 
     class Meta():
         database = DATABASE
@@ -32,6 +33,7 @@ class Dog(Model):
     image = BlobField(null=True)
     notes = TextField()
     created_at = DateTimeField(default=datetime.now)
+    update = BooleanField(default=False)
 
     class Meta():
         database = DATABASE
@@ -48,6 +50,7 @@ class Vaccine(Model):
     date_taken = DateField(default=date.today())
     dog_id = ForeignKeyField(Dog, backref='vaccines')
     created_at = DateTimeField(default= datetime.now)
+    update = BooleanField(default=False)
 
     class Meta():
         database = DATABASE
@@ -58,6 +61,7 @@ class Medicine(Model):
     frequency = TextField(default='1 per year')
     dog_id = ForeignKeyField(Dog, backref='medicines')
     created_at = DateTimeField(default= datetime.now)
+    update = BooleanField(default=False)
 
     class Meta():
         database = DATABASE
@@ -73,6 +77,7 @@ class Dookie(Model):
     dog_id = ForeignKeyField(Dog, backref='dookies')
     created_date = DateField(default=date.today())
     created_at = DateTimeField(default= datetime.now)
+    update = BooleanField(default=False)
 
     class Meta():
         database = DATABASE
