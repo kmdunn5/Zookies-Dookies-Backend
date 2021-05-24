@@ -1,7 +1,7 @@
 import os
 from peewee import *
 from flask_login import UserMixin
-from datetime import datetime, date, time
+from datetime import datetime, date
 from playhouse.db_url import connect
 
 # if os.environ.get('FLASK_ENV') == 'development':
