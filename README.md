@@ -1,6 +1,6 @@
 # Zookies-Dookies-Backend
 
-Backend for Zukies Dookies
+Backend for Zookies Dookies
 
 ## List of technologies to look at:
 
