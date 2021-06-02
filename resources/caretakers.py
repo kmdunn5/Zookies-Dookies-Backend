@@ -65,6 +65,7 @@ def logout_caretaker():
     logout_user()
     return jsonify(data={}, status={'code':200, 'message':'Successfully logged out'})
 
+#find the user trying to log in
 @caretaker.route('/', methods=['GET'])
 # @cross_origin(origins=['http://localhost:3000', 'https://zookies-dookies.herokuapp.com'])
 @login_required
